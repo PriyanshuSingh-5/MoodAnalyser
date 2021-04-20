@@ -17,13 +17,13 @@ namespace MoodAnalyser
 
         public string Analyser()
         {
-            if(this.message.ToLower().Contains("happy"))
+            if(this.message.ToLower().Contains("sad"))
             {
-                return "happy";
+                return "sad";
             }
             else
             {
-                return "sad";
+                return "no mood";
             }
         }
     }
