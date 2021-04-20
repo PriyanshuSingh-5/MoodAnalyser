@@ -8,22 +8,34 @@ namespace MoodAnalyser
 {
     public class MoodToAnalyse
     {
+        //instance variable
         string message;
+
+        //parameterized constructor
         public MoodToAnalyse(string message)
         {
             this.message = message;
 
         }
 
+        //Analyser method to find mood
         public string Analyser()
         {
-            if(this.message.ToLower().Contains("happy"))
+            try
             {
-                return "happy";
+
+                if (this.message.ToLower().Contains("happy"))
+                {
+                    return "happy";
+                }
+                else
+                {
+                    return "no mood";
+                }
             }
-            else
+            catch (NullReferenceException ex)
             {
-                return "no mood";
+                return ex.Message;
             }
         }
     }
