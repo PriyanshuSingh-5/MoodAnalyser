@@ -21,6 +21,7 @@ namespace MoodAnalyser
         //Analyser method to find mood
         public string Analyser()
         {
+            //Exception
             try
             {
                 if (this.message.Equals(string.Empty))
@@ -31,7 +32,7 @@ namespace MoodAnalyser
                 }
                 else
                 {
-                    return "no mood";
+                    return "sad";
                 }
             }
             catch (NullReferenceException ex)
