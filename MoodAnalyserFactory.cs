@@ -9,6 +9,7 @@ using System.Reflection;
 
 namespace MoodAnalyser
 {
+    //UC4-Reflection using default constructor
     public class MoodAnalyserFactory
     {
         public static object CreateMoodAnalyseMethod(string className, string constructorName)
@@ -35,6 +36,31 @@ namespace MoodAnalyser
                 throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD, "Constructor is not Found");
             }
         }
-    }
-}
+            //UC5-Reflection using parameterized constructor
+            public static object CreateMoodAnalyseMethod(string className, string constructorName, string message)
+            {
+                Type type = typeof(MoodToAnalyse);
+                if (type.Name.Equals(className) || type.FullName.Equals(className))
+                {
+                    if (type.Name.Equals(constructorName))
+                    {
+                        ConstructorInfo ctor = type.GetConstructor(new[] { typeof(string) });
+                        object instance = ctor.Invoke(new object[] { message });
+                        return instance;
+                    }
+                    else
+                    {
+                        throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD, "Constructor is not found");
+                    }
+                }
+                else
+                {
+                    throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_CLASS, "Class not found");
 
+                }
+            }
+        }
+    }
+
+
+      
