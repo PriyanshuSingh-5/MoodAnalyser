@@ -44,8 +44,8 @@ namespace MoodAnalyser
                 {
                     if (type.Name.Equals(constructorName))
                     {
-                        ConstructorInfo ctor = type.GetConstructor(new[] { typeof(string) });
-                        object instance = ctor.Invoke(new object[] { message });
+                        ConstructorInfo constructorInfo = type.GetConstructor(new[] { typeof(string) });
+                        object instance = constructorInfo.Invoke(new object[] { message });
                         return instance;
                     }
                     else
@@ -59,8 +59,28 @@ namespace MoodAnalyser
 
                 }
             }
+
+        //UC6
+        public static string InvokeMethod(string className, string methodName, string message)
+        {
+            Type type1 = typeof(MoodAnalyser);
+            try
+            {
+                ConstructorInfo constructor = type1.GetConstructor(new[] { typeof(string) });
+                object obj = MoodAnalyserFactory.CreatedMoodAnalyserUsingParameterizedConstructor(className, methodName, message);
+                Assembly excutingAssambly = Assembly.GetExecutingAssembly();
+                Type type = excutingAssambly.GetType(className);
+                MethodInfo getMoodMethod = type.GetMethod(methodName);
+                string msg = (string)getMoodMethod.Invoke(obj, null);
+                return msg;
+            }
+            catch (Exception)
+            {
+                throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.INVALID_INPUT, "No Such Method");
+            }
         }
     }
 
 
-      
+
+}
