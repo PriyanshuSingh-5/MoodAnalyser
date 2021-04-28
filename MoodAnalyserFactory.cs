@@ -63,11 +63,11 @@ namespace MoodAnalyser
         //UC6
         public static string InvokeMethod(string className, string methodName, string message)
         {
-            Type type1 = typeof(MoodAnalyser);
+            Type type1 = typeof(MoodToAnalyse);
             try
             {
                 ConstructorInfo constructor = type1.GetConstructor(new[] { typeof(string) });
-                object obj = MoodAnalyserFactory.CreatedMoodAnalyserUsingParameterizedConstructor(className, methodName, message);
+                object obj = MoodAnalyserFactory.CreateMoodAnalyseMethod(className, methodName, message);
                 Assembly excutingAssambly = Assembly.GetExecutingAssembly();
                 Type type = excutingAssambly.GetType(className);
                 MethodInfo getMoodMethod = type.GetMethod(methodName);
@@ -76,7 +76,7 @@ namespace MoodAnalyser
             }
             catch (Exception)
             {
-                throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.INVALID_INPUT, "No Such Method");
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD, "No Such Method");
             }
         }
     }
